@@ -47,6 +47,9 @@
     "italia-ts-commons": "^8.5.0",
     "winston": "^3.2.1"
   },
+  "release": {
+    "branches":["main"]
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pagopa/bs-utils.git"
