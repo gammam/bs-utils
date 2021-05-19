@@ -51,11 +51,11 @@
     "branches": [
       "main"
     ],
-    "plugin": [ 
+    "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/git"
-      ]
+    ]
   },
   "repository": {
     "type": "git",
