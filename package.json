@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "shx rm -rf dist && yarn generate",
-    "build": "tsc",
+    "build": "tsc src/*.ts",
     "clean": "npm-run-all -s clean:*",
     "clean:dist": "rimraf dist",
     "clean:generated": "rimraf generated",
