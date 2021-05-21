@@ -15,7 +15,7 @@
     "dist:modules": "modclean -r -n default:safe && yarn install --production",
     "predeploy": "npm-run-all generate build dist:*",
     "generate:spi": "rimraf ./generated/bs-utils-spi-api && gen-api-models --api-spec ./north-api/spi_north_api.yaml --no-strict --out-dir ./generated/bs-utils-spi-api --request-types --response-decoders --client",
-    "generate:checkiban": "rimraf ./generated/bs-utils-checkiban-api && gen-api-models --api-spec ./north-api/checkIban_north_api.yaml --no-strict --out-dir ./generated/bs-utils-checkiban-api --request-types --response-decoders  --verbose",
+    "generate:checkiban": "rimraf ./generated/bs-utils-checkiban-api && gen-api-models --api-spec ./north-api/checkIban_north_api.yaml --no-strict --out-dir ./generated/bs-utils-checkiban-api --request-types --response-decoders  --client",
     "generate": "npm-run-all generate:*",
     "preversion": "auto-changelog  --config .auto-changelog.json --unreleased --commit-limit false --stdout --template preview.hbs",
     "version": "auto-changelog -p --config .auto-changelog.json --unreleased && git add CHANGELOG.md"
