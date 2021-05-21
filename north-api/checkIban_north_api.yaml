@@ -18,8 +18,16 @@ paths:
       consumes:
       - application/json
       produces:
-      - '*/*'
+      - application/json
       parameters:
+      - in: header
+        name: Auth-Schema
+        type: string
+        required: true
+      - in: header
+        name: Api-Key
+        type: string
+        required: true
       - in: body
         name: inputModel
         description: Validates the provided account number and holder data.
@@ -30,7 +38,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseModel%3CValidateAccountHolderResponseModel%3E'
+            $ref: '#/definitions/ResponseModelValidateAccountHolderResponseModel'
 definitions:
   AccountHolderRequestModel:
     type: object
@@ -74,9 +82,6 @@ definitions:
     title: AccountHolderResponseModel
   AccountRequestModel:
     type: object
-    required:
-    - value
-    - valueType
     properties:
       bicCode:
         type: string
@@ -132,7 +137,7 @@ definitions:
       params:
         type: string
     title: ErrorModel
-  ResponseModel<ValidateAccountHolderResponseModel>:
+  ResponseModelValidateAccountHolderResponseModel:
     type: object
     properties:
       errors:
@@ -147,12 +152,9 @@ definitions:
         - KO
         - OK
         - PENDING
-    title: ResponseModel<ValidateAccountHolderResponseModel>
+    title: ValidateAccountHolderResponseModel
   ValidateAccountHolderRequestModel:
     type: object
-    required:
-    - account
-    - accountHolder
     properties:
       account:
         description: The account information
