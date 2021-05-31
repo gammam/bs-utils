@@ -39,6 +39,14 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/ResponseModelValidateAccountHolderResponseModel'
+        "400":
+          description: BadRequest
+          schema:
+            $ref: '#definitions/Response400ErrorModel'
+        "403":
+          description: BadRequest
+          schema:
+            $ref: '#definitions/Response400ErrorModel'
 definitions:
   AccountHolderRequestModel:
     type: object
@@ -67,18 +75,12 @@ definitions:
       fiscalCode:
         type: string
         description: The identification data of the account holder, if natural person (Italian Codice Fiscale). Required field if type == 'PERSON_NATURAL'.
-      taxCode:
-        type: string
-        description: The identification data of the account holder, if legal person (Italian Codice Fiscale Aziendale). Required field if type == 'PERSON_LEGAL'.
       type:
         type: string
         description: The type of account holder, used to decline the holderId.
         enum:
         - PERSON_LEGAL
         - PERSON_NATURAL
-      vatCode:
-        type: string
-        description: The identification data of the account holder, if legal person (Italian Partita IVA). Required field if type == 'PERSON_LEGAL'.
     title: AccountHolderResponseModel
   AccountRequestModel:
     type: object
@@ -101,9 +103,6 @@ definitions:
     - value
     - valueType
     properties:
-      bicCode:
-        type: string
-        description: The international bic code.
       value:
         type: string
         description: The account number.
@@ -134,27 +133,18 @@ definitions:
         type: string
       description:
         type: string
-      params:
-        type: string
     title: ErrorModel
   ResponseModelValidateAccountHolderResponseModel:
     type: object
     properties:
-      errors:
-        type: array
-        items:
-          $ref: '#/definitions/ErrorModel'
-      payload:
-        $ref: '#/definitions/ValidateAccountHolderResponseModel'
       status:
         type: string
-        enum:
-        - KO
-        - OK
-        - PENDING
+      payload:
+        type: object
     title: ValidateAccountHolderResponseModel
   ValidateAccountHolderRequestModel:
     type: object
+    x-nullable: true
     properties:
       account:
         description: The account information
@@ -166,6 +156,12 @@ definitions:
   ValidateAccountHolderResponseModel:
     type: object
     properties:
+      validationStatus:
+        type: string
+        description: The validation result.
+        enum:
+        - KO
+        - OK
       account:
         description: The account information.
         $ref: '#/definitions/AccountResponseModel'
@@ -175,10 +171,16 @@ definitions:
       bankInfo:
         description: The bank information.
         $ref: '#/definitions/BankInfoModel'
-      validationStatus:
-        type: string
-        description: The validation result.
-        enum:
-        - KO
-        - OK
+        x-nullable: true
     title: ValidateAccountHolderResponseModel
+  Response400ErrorModel:
+    type: object
+    required:
+    - status
+    properties:
+      status:
+        type: string
+      errors:
+        type: array
+        items:
+          $ref: '#/definitions/ErrorModel'
